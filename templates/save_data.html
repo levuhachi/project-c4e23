@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <title>Movies</title>
+</head>
+<body>
+    <!-- <form method="POST"> -->
+    <div>
+        <label>Title</label> <br>
+        <input type="text"  name="title"> <br>
+
+        <!-- <label>Option</label> <br> -->
+        <div id="options">
+            <input type="text" placeholder="Add an option" name = "option"> <br>
+        </div>
+        
+        <button id ="btn_add">Add</button>
+
+        <button>Save Your Thinking</button> <br>
+    </div>
+    <!-- </form> -->
+
+    <script>
+        // add_button = $("#btn_add");
+        $("#btn_add").on("click", () => {
+            let input_option = `<input type="text" placeholder="Add an option" name = "option"> <br>`;
+            $('#options').append(input_option);
+        })
+    </script>
+</body>
+</html>
