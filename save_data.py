@@ -1,27 +1,31 @@
 from flask import Flask,request,render_template, session, redirect, url_for
-from models.user import User
-from models.movie import Movie
+from models.lazydata import Lazy
 import mlab
+
 app = Flask(__name__)
 mlab.connect()
 
-@app.route("/datainput", methods = ["GET","POST"])
-def add_movie():
-    if "token" not in session:
-        return redirect("/login")
+@app.route("/lazythinking", methods = ["GET","POST"])
+def lazythinking():
     if request.method == "GET":
         return render_template("save_data.html")
     elif request.method == "POST":
         form = request.form
-        title = form["title"]
-        option = form["option"]
-        username = session["token"]
-        options = Option.objects(username = username).first()
-        new_option = Option(title = title, option = option)
-        new_option.save()
-        return "Ok"
+        print(form)
+        for i in form:
+            print(i)
+        # title = form["title"]
+
+        # option = []
+        # for k,v in form.items():
+        #     print(k,v)
+            # newoption = form["option"]
+            # option.append(newoption)
+
+        # new_option = Lazy(title = title, option = option)
+        # new_option.save()
+        return "Your choices have been saved"
 
     
-
 if __name__ == '__main__':
   app.run(debug=True)
