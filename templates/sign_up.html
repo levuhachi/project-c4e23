@@ -1,17 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
+<style>
+    * {
+        font-size: 1.2rem;
+    }
+    form {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        margin-top: -200px;
+        margin-left: -200px;
+    }
+
+    input {
+        border-radius: 4px;
+        width: 150%;
+    }
+
+    button {
+        margin-left: 10px;
+        background-color: rgb(63, 63, 155);
+        color: white;
+        border-radius: 4px;
+    }
+    
+    div {
+        margin: 10px;
+    }
+</style>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Sign up</title>
+    <title>Login</title>
 </head>
 <body>
     <form action="" method="POST">
-        <label for="">Username</label>
-        <input type="text" name="username">
-        <label for="">Password</label>
-        <input type="text" name="password">
+        <div>
+            <label for="">Username</label><br>
+            <input type="text" name="username">
+        </div>
+        <div>
+            <label for="">Password</label><br>
+            <input type="password" name="password">
+        </div>
         <button>Submit</button>
     </form>
 </body>
