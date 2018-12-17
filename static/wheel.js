@@ -3,69 +3,62 @@ const colorPicker = ['aqua', 'yellow', 'blue', 'green', 'pink'];
 
 $("#btn_add").on("click", () => {
     optionNum++;
+    textOption = 'option ' + optionNum;
     if (optionNum <= 5) {
         let input_option = `<input style="background-color: ${colorPicker[optionNum-1]}" type="text" placeholder="Add an option" name = "option${optionNum}"> <br>`;
         $('#options').append(input_option);
-        addSegments(colorPicker[optionNum-1]);
+        addSegments(colorPicker[optionNum-1], textOption);
     } else {
-
+        alert('limit 5 option');
     }
 });
 
 
 let theWheel = new Winwheel({
-    'canvasId'    : 'canvas',
     'numSegments' : 1,
-    'lineWidth'   : 3,
+    'lineWidth'   : 2,
     'segments': [
-        {'fillStyle' : 'aqua', 'text' : ''}    
+        {'fillStyle' : 'aqua', 'text' : 'option 1'}
     ],
     'animation': {
         'type': 'spinToStop',
         'duration': 5,
-        'spins': 8
+        'spins': 8,
+        'callbackFinished' : 'alertPrize()',
     },
-    'callbackAfter' : 'drawTriangle()'
 });
 
-
-const changeColors = () => {
-    let temp = theWheel.segments[4].fillStyle;
-    theWheel.segments[4].fillStyle = theWheel.segments[3].fillStyle;
-    theWheel.segments[3].fillStyle = theWheel.segments[2].fillStyle;
-    theWheel.segments[2].fillStyle = theWheel.segments[1].fillStyle;
-    theWheel.segments[1].fillStyle = temp;
-    theWheel.draw();
-}
-
-
-const addSegments = (color) => {
+const addSegments = (color, text) => {
     theWheel.addSegment ({
-        'text': '',
+        'text': text,
         'fillStyle': color
     });
     theWheel.draw();
 };
 
+function alertPrize(){
+    var winningSegment = theWheel.getIndicatedSegment();
+    $('#myModal').modal('toggle');
+    $("#winner").text("You have won " + winningSegment.text + "!");
+}
 
-function drawTriangle()
-    {
-        // Get the canvas context the wheel uses.
-        var ctx = theWheel.ctx;
- 
-        ctx.strokeStyle = 'navy';     // Set line colour.
-        ctx.fillStyle   = 'aqua';     // Set fill colour.
-        ctx.lineWidth   = 2;
-        ctx.beginPath();              // Begin path.
-        ctx.moveTo(170, 5);           // Move to initial position.
-        ctx.lineTo(230, 5);           // Draw lines to make the shape.
-        ctx.lineTo(200, 40);
-        ctx.lineTo(171, 5);
-        ctx.stroke();                 // Complete the path by stroking (draw lines).
-        ctx.fill();                   // Then fill.
+var wheelSpinning = false;
+
+function startSpin(){
+    if(wheelSpinning == false){
+        document.getElementById('spin_button').src = "../static/images/spin_off.png";
+        theWheel.startAnimation();
+        wheelSpinning = true;
     }
+}
 
-$('#btn_spin').on('click', () => {
-    changeColors();
-    theWheel.startAnimation();
-});
+function resetWheel()
+{
+    theWheel.stopAnimation(false);  // Stop the animation, false as param so does not call callback function.
+    theWheel.rotationAngle = 0;     // Re-set the wheel angle to 0 degrees.
+    theWheel.draw();                // Call draw to render changes to the wheel.
+    wheelSpinning = false;          // Reset to false to power buttons and spin can be clicked again.
+    document.getElementById('spin_button').src = "../static/images/spin_on.png";
+}
+
+
