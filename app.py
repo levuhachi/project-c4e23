@@ -38,7 +38,7 @@ def sign_up():
         else:
             m = User(username=u, password=p)
             m.save()
-            return "Sign up successful" 
+            return render_template("sign_up_successful.html") 
 
 if __name__ == "__main__":
     app.run(debug=True)
