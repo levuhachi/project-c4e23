@@ -17,11 +17,10 @@ def login():
         p = form["password"]
         found_user = User.objects(username=u).first()
         if found_user == None:
-            return "No such user!!"
+            return redirect(url_for("sign_up"))
         else:
             if found_user["password"] == p:
                 session["token"] = u
-                return "Welcome!!!"
                 return redirect(url_for("lazythinking"))
             else:
                 return "Wrong password"
