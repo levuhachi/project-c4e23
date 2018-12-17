@@ -1,5 +1,4 @@
 import mongoengine
-
 # mongodb://<dbuser>:<dbpassword>@ds125342.mlab.com:25342/lazythinking
 
 host = "ds125342.mlab.com"
@@ -7,7 +6,6 @@ port = 25342
 db_name = "lazythinking"
 user_name = "lazy1"
 password = "lazy123"
-
 #account mlab:
 #name: lazythinking
 #pass:c4e23lazythinking
