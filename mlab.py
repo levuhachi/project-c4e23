@@ -7,7 +7,7 @@ db_name = "lazythinking"
 user_name = "lazy1"
 password = "lazy123"
 #account mlab:
-#name: lazythinking
+#name: lazythinkingc4e
 #pass:c4e23lazythinking
 
 def connect():

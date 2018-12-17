@@ -4,3 +4,4 @@ class User(Document):
     username = StringField()
     password = StringField()
     options = ListField()
+    

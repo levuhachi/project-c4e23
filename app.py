@@ -17,11 +17,12 @@ def login():
         p = form["password"]
         found_user = User.objects(username=u).first()
         if found_user == None:
-            return "No such user!!"
+            # return "No such user!!"
+            return redirect(url_for("sign_up"))
         else:
             if found_user["password"] == p:
                 session["token"] = u
-                return "Welcome!!!"
+                # return "Welcome!!!"
                 return redirect(url_for("lazythinking"))
             else:
                 return "Wrong password"
@@ -54,7 +55,9 @@ def lazythinking():
             if k != "title":
                 newoption = v
                 option.append(newoption)
-        new_option = Lazy(title = title, option = option)
+        username = session["token"]
+        user = User.objects(username = username).first()
+        new_option = Lazy(title = title, option = option, user = user)
         new_option.save()
         return "Your choices have been saved"
 
