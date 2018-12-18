@@ -34,7 +34,7 @@
 
             <label>Option</label> <br>
             <div id="options">
-                <input style="background-color: aqua;" type="text" placeholder="Add an option" name = "option1"> <br>
+                <input id="option1" style="background-color: aqua;" type="text" placeholder="Add an option" name = "option1"> <br>
             </div>
             <button>Save</button>
         </div>
@@ -76,6 +76,7 @@
     <script src="../static/wheel.js"></script>
     <script>
         let numQuestion = $('#asked').attr('numQuestion');
+        let colorPikedQuest = [];
         for (let indexQues = 1; indexQues <= numQuestion; indexQues++) {
             $(`#question${indexQues}`).on('click', () => {
                 $('#options').empty();
@@ -84,11 +85,16 @@
                 for (let indexOption = 1; indexOption <= numOptions; indexOption++) {
                     let optionValue = $(`#option${indexOption}`).attr('optionValue');
                     let color = getRandomColor();
-                    $('#options').append(`
-                        <input value="${optionValue}" style="background-color: ${color};" type="text" placeholder="Add an option" name = "option${indexOption}">
-                        </br>
-                    `);
-                    addSegments(color);
+                    if (!colorPikedQuest.includes(color)) {
+                        $('#options').append(`
+                            <input value="${optionValue}" style="background-color: ${color};" type="text" placeholder="Add an option" name = "option${indexOption}">
+                            </br>
+                        `);
+                        addSegments(color);
+                        colorPikedQuest.push(color);
+                    } else {
+                        indexOption--;
+                    }
                 }
             })
         }

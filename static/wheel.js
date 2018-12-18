@@ -1,23 +1,27 @@
 let optionNum = 1;
+let colorPicker = ['green', 'yellow', 'red', 'blue', 'pink', 'aqua', 'brown', 'orange'];
+let colorPicked = [];
 const getRandomColor = () => {
-    let colorPicker = ['green', 'yellow', 'red', 'blue', 'pink', 'aqua', 'brown', 'orange'];
     return colorPicker[Math.floor(Math.random() * colorPicker.length)];
   }
-  
+let firstColor = getRandomColor();
+colorPicked.push(firstColor);
+$('#option1').css('background-color', firstColor);
   $("#btn_add").on("click", () => {
-    let colorPicker = getRandomColor();
     if (theWheel.numSegments === 5) {
         alert('limit 5 option');   
     } else {
         optionNum++;
         let newColor = getRandomColor();
-        if (newColor !== colorPicker) {
-            let input_option = `<input style="background-color: ${colorPicker}" type="text" placeholder="Add an option" name = "option${optionNum}"> <br>`;
+        if (!colorPicked.includes(newColor)) {
+            $('#options').append(`<input id="option${optionNum}" style="background-color: ${newColor}" type="text" placeholder="Add an option" name = "option${optionNum}"> <br>`);
+            addSegments(newColor);
+            colorPicked.push(newColor);
         } else {
-            newColor = getRandomColor();            
+            $('#btn_add').click();
+            // console.log("ahihi");
+                    
         }
-        $('#options').append(input_option);
-        addSegments(colorPicker);
     }
 });
 
@@ -26,7 +30,7 @@ let theWheel = new Winwheel({
     'numSegments' : 1,
     'lineWidth'   : 2,
     'segments': [
-        {'fillStyle' : 'aqua', 'text' : 'option 1'}
+        {'fillStyle' : `${firstColor}`, 'text' : 'option 1'}
     ],
     'animation': {
         'type': 'spinToStop',
