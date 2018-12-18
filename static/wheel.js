@@ -13,7 +13,7 @@ $('#option1').css('background-color', firstColor);
     } else {
         optionNum++;
         let newColor = getRandomColor();
-        if (!colorPicked.includes(newColor)) {
+        if (!colorPicked.includes(newColor) && !colorPickedQuest.includes(newColor)) {
             $('#options').append(`<input id="option${optionNum}" style="background-color: ${newColor}" type="text" placeholder="Add an option" name = "option${optionNum}"> <br>`);
             addSegments(newColor);
             colorPicked.push(newColor);
