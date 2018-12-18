@@ -1,15 +1,23 @@
 let optionNum = 1;
-const colorPicker = ['aqua', 'yellow', 'blue', 'green', 'pink'];
-
-$("#btn_add").on("click", () => {
-    optionNum++;
-    textOption = 'option ' + optionNum;
-    if (optionNum <= 5) {
-        let input_option = `<input style="background-color: ${colorPicker[optionNum-1]}" type="text" placeholder="Add an option" name = "option${optionNum}"> <br>`;
-        $('#options').append(input_option);
-        addSegments(colorPicker[optionNum-1], textOption);
+const getRandomColor = () => {
+    let colorPicker = ['green', 'yellow', 'red', 'blue', 'pink', 'aqua', 'brown', 'orange'];
+    return colorPicker[Math.floor(Math.random() * colorPicker.length)];
+  }
+  
+  $("#btn_add").on("click", () => {
+    let colorPicker = getRandomColor();
+    if (theWheel.numSegments === 5) {
+        alert('limit 5 option');   
     } else {
-        alert('limit 5 option');
+        optionNum++;
+        let newColor = getRandomColor();
+        if (newColor !== colorPicker) {
+            let input_option = `<input style="background-color: ${colorPicker}" type="text" placeholder="Add an option" name = "option${optionNum}"> <br>`;
+        } else {
+            newColor = getRandomColor();            
+        }
+        $('#options').append(input_option);
+        addSegments(colorPicker);
     }
 });
 

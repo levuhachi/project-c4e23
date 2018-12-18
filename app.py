@@ -42,9 +42,15 @@ def sign_up():
             return render_template("sign_up_successful.html") 
 
 @app.route("/lazythinking", methods = ["GET","POST"])
-def lazythinking():
+def lazythinking():    
     if request.method == "GET":
-        return render_template("save_data.html")
+        if "token" in session:
+            username = session["token"]
+            user = User.objects(username = username).first()
+            lazy = Lazy.objects(user = user)
+            return render_template("save_data.html", lazy = lazy, numQuestion = len(lazy))
+        else:
+            return "Not Allowed"
     elif request.method == "POST":
         form = request.form
         title = form["title"]
@@ -55,7 +61,7 @@ def lazythinking():
                 option.append(newoption)
         username = session["token"]
         user = User.objects(username = username).first()
-        new_option = Lazy(title = title, option = option, user = user)
+        new_option = Lazy(title = title, option = option, num_option = len(option),user = user)
         new_option.save()
         return "Your choices have been saved"
 
