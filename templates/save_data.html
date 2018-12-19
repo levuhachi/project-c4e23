@@ -67,10 +67,11 @@
     <h2 id="asked" numQuestion = "{{numQuestion}}">The questions {{session['token']}} you asked:</h3>
     
         {% for easy in lazy %}
+            {% set question_loop = loop %}
             <h3 id="question{{loop.index}}" numOptions = "{{ easy.num_option }}"> Question : {{ easy["title"] }} </h3>
             <h3>Options: </h3>
             {% for i in easy["option"] %}
-                <h3 id="option{{loop.index}}" optionValue="{{i}}">{{ i }}</h3>
+                <h3 id="option{{loop.index}}-{{question_loop.index}}" optionValue="{{i}}">{{ i }}</h3>
             {% endfor %}
         {% endfor %}
     <script src="../static/wheel.js"></script>
@@ -79,11 +80,12 @@
         let colorPickedQuest = [];
         for (let indexQues = 1; indexQues <= numQuestion; indexQues++) {
             $(`#question${indexQues}`).on('click', () => {
+                colorPickedQuest = [];
                 $('#options').empty();
                 theWheel.numSegments = 0;
                 let numOptions = $(`#question${indexQues}`).attr('numOptions');
                 for (let indexOption = 1; indexOption <= numOptions; indexOption++) {
-                    let optionValue = $(`#option${indexOption}`).attr('optionValue');
+                    let optionValue = $(`#option${indexOption}-${indexQues}`).attr('optionValue');
                     let color = getRandomColor();
                     if (!colorPickedQuest.includes(color)) {
                         $('#options').append(`
