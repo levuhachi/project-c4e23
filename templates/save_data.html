@@ -9,7 +9,8 @@
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="../static/style/style.css">
-    <link href="https://fonts.googleapis.com/css?family=Major+Mono+Display" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lora|Major+Mono+Display|Raleway" rel="stylesheet">
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <title>Lazy Thinking</title>
@@ -29,14 +30,14 @@
     <div class="col-sm-6">
             <canvas id="canvas" width="438" height="582" class="the_wheel" align="center" valign="center" onClick="startSpin();"></canvas>
             <p>
-                <a href="#" onClick="resetWheel(); return false;" style="margin-left:35%;">Play Again</a>
+                <button type= onClick="resetWheel(); return false;" style="margin-left:35%;">Play Again</button>
             </p>
     </div>
     <div class="container">
             <div class="col-sm-6">
                 <div class="form-horizontal">
                     <!-- <label>Title</label> -->
-                    <label>Options</label>
+                    <label style="font-family: 'Lora', serif;font-weight: bold;font-size:175%">Options</label>
                     <div class="d-flex flex-column" id="options">
                         <input class="questions" id="option1" style="background-color: aqua;" type="text" placeholder="Add an option" name = "option1" required>
                     </div>
@@ -61,10 +62,11 @@
                             </div>
                             <div class="col-sm-5">
                                 <button class="btn-option" onclick="showOption({{loop.index}})" style="margin-left: 20px;">Show Option</button>
+                                <button class="btn-option" onclick="remove({{loop.index}})" style="margin-left: 20px;">Delete</button>
                             </div>
                         </div>
                         <div id="show_option{{loop.index}}" style="display: none; clear: both; margin-left: 20px;">
-                           <b> <p>Options: </p> </b>
+                           <b> <p style="font-size: 130%">Options: </p> </b>
                             {% for i in easy["option"] %}
                                 <p id="option{{loop.index}}-{{question_loop.index}}" optionValue="{{i}}">{{ i }}</p>
                             {% endfor %}
@@ -99,12 +101,16 @@
             }
         }
         $('#btn_remove').on('click', () => {
-            deleteSegment();
-            let optionsLength = $('#options')[0].children.length;
-            let colorDeleted = colorPicked.indexOf($(`#option${optionNum}`)[0].style.backgroundColor);
-            $(`#option${optionNum}`).remove();
-            colorPicked.splice(`${colorDeleted}`, 1);
-            optionNum--;
+            if($('#options')[0].length == 1){
+                console.log(123);
+            }else{
+                deleteSegment();
+                let optionsLength = $('#options')[0].children.length;
+                let colorDeleted = colorPicked.indexOf($(`#option${optionNum}`)[0].style.backgroundColor);
+                $(`#option${optionNum}`).remove();
+                colorPicked.splice(`${colorDeleted}`, 1);
+                optionNum--;
+            }
         })
         let numQuestion = $('#asked').attr('numQuestion');
         let colorPickedQuest = [];

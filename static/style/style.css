@@ -25,7 +25,8 @@ input{
 }
 .questions1 {
     width: 100%;
-    margin-top: 10%;
+    margin-top: 5%;
+    margin-bottom: 2%;
 }
 .btn-normal{
     border: 2px solid gray;
@@ -75,3 +76,13 @@ h1{
     align-items: center;
 
 } */
+#asked{
+    font-family: 'Lora', serif;;
+    font-weight: bold;
+}
+h4{
+    font-weight: bold;
+}
+#old_op{
+    font-weight: bold;
+}

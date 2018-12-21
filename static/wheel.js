@@ -79,7 +79,7 @@ function alertPrize(){
     }
     console.log(optionLength);
     $('#myModal').modal('toggle');
-    $("#winner").text("You have won " + textWon + "!");
+    $("#winner").text("Your fate leads to " + textWon + "!");
 }
 
 var wheelSpinning = false;
@@ -97,7 +97,6 @@ function resetWheel()
     theWheel.rotationAngle = 0;     // Re-set the wheel angle to 0 degrees.
     theWheel.draw();                // Call draw to render changes to the wheel.
     wheelSpinning = false;          // Reset to false to power buttons and spin can be clicked again.
-    document.getElementById('spin_button').src = "../static/images/spin_on.png";
 }
 
 
