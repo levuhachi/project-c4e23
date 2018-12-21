@@ -2,7 +2,7 @@
     background-image: url(../images/wheel_back.png);
     background-position: center;
     background-repeat: none;
-    margin-top: 10%;
+    /* margin-top: 10%; */
 }
 /* .modal-content{
     height: 300px;
@@ -53,6 +53,10 @@ input{
 body{
     width: 80%;
     margin: auto;
+    background-image: url(https://cf.beautyheaven-site-au.prod.bhn.net.au/sites/default/files/article/feature/PANTONE-MAIN.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+
 }
 h1{
     font-size: 400%;

@@ -18,6 +18,14 @@
 
 <body>
     <h1>SPIN YOUR FATE</h1>
+    <form action="" method="post">
+    <div class="row">
+        <div class="col-sm-4"></div>
+            <div class="col-sm-4">
+                <input type="text" class="questions1" name = "title" placeholder="What's spinning on your mind?">
+            </div>
+        <div class="col-sm-4"></div>
+    </div>
     <div class="col-sm-6">
             <canvas id="canvas" width="438" height="582" class="the_wheel" align="center" valign="center" onClick="startSpin();"></canvas>
             <p>
@@ -26,20 +34,16 @@
     </div>
     <div class="container">
             <div class="col-sm-6">
-                <form method="POST" class="form-horizontal">
+                <div class="form-horizontal">
                     <!-- <label>Title</label> -->
-                    <div>
-                        <input type="text" class="questions1" name = "title" placeholder="What's spinning on your mind?">
-                    </div>
                     <label>Options</label>
                     <div class="d-flex flex-column" id="options">
                         <input class="questions" id="option1" style="background-color: aqua;" type="text" placeholder="Add an option" name = "option1">
-                        <br>
                     </div>
-                    <button class="btn-normal" style="background-color:yellow">Save</button>
+                    <input type="submit" class="btn-normal" style="background-color:yellow" value="Save">
                     <input type="button" class="btn-normal" style="background-color: #5555bf;" id ="btn_add" value="Add">
                     <input type="button" class="btn-normal" style="background-color: #f44336;" id ="btn_remove" value="Remove">
-                </form>
+                </div>
         
                 <div style="clear: both;">
 
@@ -113,7 +117,6 @@
                     if (!colorPickedQuest.includes(color)) {
                         $('#options').append(`
                             <input class="questions" value="${optionValue}" style="background-color: ${color};" type="text" placeholder="Add an option" name = "option${indexOption}">
-                            </br>
                         `);
                         addSegments(color);
                         colorPickedQuest.push(color);
@@ -124,5 +127,6 @@
             })
         }
     </script>
+    </form>
 </body>
 </html>

@@ -41,7 +41,7 @@ def sign_up():
             m.save()
             return render_template("sign_up_successful.html") 
 
-@app.route("/lazythinking", methods = ["GET","POST"])
+@app.route("/", methods = ["GET","POST"])
 def lazythinking():    
     if request.method == "GET":
         if "token" in session:

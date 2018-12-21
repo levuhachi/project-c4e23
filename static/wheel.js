@@ -1,5 +1,6 @@
 let optionNum = 1;
-let colorPicker = ['green', 'yellow', 'red', 'blue', 'pink', 'aqua', 'brown', 'orange'];
+// let colorPicker = ['green', 'yellow', 'red', 'blue', 'pink', 'aqua', 'brown', 'orange'];
+let colorPicker = ['#EB6E80','#008F95','#E24E42','#49274A','#F19F4D']
 let colorPicked = [];
 const getRandomColor = () => {
     return colorPicker[Math.floor(Math.random() * colorPicker.length)];
@@ -15,7 +16,7 @@ $('#option1').css('background-color', firstColor);
         optionNum++;
         let newColor = getRandomColor();
         if (!colorPicked.includes(newColor) && !colorPickedQuest.includes(newColor)) {
-            $('#options').append(`<input class="questions" id="option${optionNum}" style="background-color: ${newColor}" type="text" placeholder="Add an option" name = "option${optionNum}"><br>`);
+            $('#options').append(`<input class="questions" id="option${optionNum}" style="background-color: ${newColor}" type="text" placeholder="Add an option" name = "option${optionNum}">`);
             addSegments(newColor);
             colorPicked.push(newColor);
             console.log("PUSH" + colorPicked);
@@ -51,10 +52,32 @@ const addSegments = (color, text) => {
     theWheel.draw();
 };
 
+function hexToRgb(hex) {
+    var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    
+    let r = parseInt(result[1], 16);
+    let g = parseInt(result[2], 16);
+    let b = parseInt(result[3], 16)
+    return `rgb(${r}, ${g}, ${b})`
+}
+
+// alert( hexToRgb("#0033ff").g ); // "51";
+
 function alertPrize(){
-    var winningSegment = theWheel.getIndicatedSegment();
+    let winningSegment = theWheel.getIndicatedSegment();
+    let colorSegment = hexToRgb(winningSegment.fillStyle);
+    let optionLength = $('#options')[0].children.length;
+    let textWon = '';
+    for (let index = 1; index <= optionLength; index++) {
+        let colorOption = $(`#option${index}`)[0].style.backgroundColor;
+        if (colorOption === colorSegment) {
+            textWon = $(`#option${index}`)[0].value;
+            break;
+        }
+        //  $(`#option${index}`)
+    }
     $('#myModal').modal('toggle');
-    $("#winner").text("You have won " + winningSegment.text + "!");
+    $("#winner").text("You have won " + textWon + "!");
 }
 
 var wheelSpinning = false;
