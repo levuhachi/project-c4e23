@@ -6,6 +6,7 @@ const getRandomColor = () => {
   }
 let firstColor = getRandomColor();
 colorPicked.push(firstColor);
+console.log(colorPicked);
 $('#option1').css('background-color', firstColor);
   $("#btn_add").on("click", () => {
     if (theWheel.numSegments === 5) {
@@ -14,10 +15,12 @@ $('#option1').css('background-color', firstColor);
         optionNum++;
         let newColor = getRandomColor();
         if (!colorPicked.includes(newColor) && !colorPickedQuest.includes(newColor)) {
-            $('#options').append(`<input id="option${optionNum}" style="background-color: ${newColor}" type="text" placeholder="Add an option" name = "option${optionNum}"> <br>`);
+            $('#options').append(`<input id="option${optionNum}" style="background-color: ${newColor}" type="text" placeholder="Add an option" name = "option${optionNum}"><br>`);
             addSegments(newColor);
             colorPicked.push(newColor);
+            console.log("PUSH" + colorPicked);
         } else {
+            optionNum--;
             $('#btn_add').click();
             // console.log("ahihi");
                     
@@ -30,7 +33,7 @@ let theWheel = new Winwheel({
     'numSegments' : 1,
     'lineWidth'   : 2,
     'segments': [
-        {'fillStyle' : `${firstColor}`, 'text' : 'option 1'}
+        {'fillStyle' : `${firstColor}`, 'text' : ''}
     ],
     'animation': {
         'type': 'spinToStop',
@@ -58,7 +61,6 @@ var wheelSpinning = false;
 
 function startSpin(){
     if(wheelSpinning == false){
-        document.getElementById('spin_button').src = "../static/images/spin_off.png";
         theWheel.startAnimation();
         wheelSpinning = true;
     }

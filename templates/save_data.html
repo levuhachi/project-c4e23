@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -7,7 +7,9 @@
     <script src="../static/Winwheel.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.0.2/TweenMax.min.js"></script>
 
+   
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'style.css') }}">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <title>Lazy Thinking</title>
@@ -23,6 +25,7 @@
             margin: auto;
             border-radius: inherit;
         }
+
     </style>
 </head>
 
@@ -76,6 +79,183 @@
         {% endfor %}
     <script src="../static/wheel.js"></script>
     <script>
+        let numQuestion = $('#asked').attr('numQuestion');
+        let colorPickedQuest = [];
+        for (let indexQues = 1; indexQues <= numQuestion; indexQues++) {
+            $(`#question${indexQues}`).on('click', () => {
+                colorPickedQuest = [];
+                $('#options').empty();
+                theWheel.numSegments = 0;
+                let numOptions = $(`#question${indexQues}`).attr('numOptions');
+                for (let indexOption = 1; indexOption <= numOptions; indexOption++) {
+                    let optionValue = $(`#option${indexOption}-${indexQues}`).attr('optionValue');
+                    let color = getRandomColor();
+                    if (!colorPickedQuest.includes(color)) {
+                        $('#options').append(`
+                            <input value="${optionValue}" style="background-color: ${color};" type="text" placeholder="Add an option" name = "option${indexOption}">
+                            </br>
+                        `);
+                        addSegments(color);
+                        colorPickedQuest.push(color);
+                    } else {
+                        indexOption--;
+                    }
+                }
+            })
+        }
+    </script>
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="../static/Winwheel.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.0.2/TweenMax.min.js"></script>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <title>Lazy Thinking</title>
+    <style>
+        .the_wheel{
+            background-image: url(../static/images/wheel_back.png);
+            background-position: center;
+            background-repeat: none;
+        }
+        /* .modal-content{
+            height: 300px;
+            width: 300px;
+            margin: auto;
+            border-radius: inherit;
+        } */
+        input{
+            padding: 8px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 2px solid gray;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .btn-normal{
+            border: 2px solid gray;
+            border-radius: 4px;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+        .btn-option{
+            border: 2px solid gray;
+            border-radius: 4px;
+            color: black;
+            padding: 5px 10px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+        body{
+            width: 80%;
+            margin: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="col-sm-6">
+            <canvas id="canvas" width="438" height="582" class="the_wheel" align="center" valign="center" onClick="startSpin();"></canvas>
+            <p>
+                <a href="#" onClick="resetWheel(); return false;" style="margin-left:35%;">Play Again</a>
+            </p>
+    </div>
+    <div class="container">
+            <div class="col-sm-6">
+                <form method="POST" class="form-horizontal">
+                    <label>Title</label>
+                    <div>
+                        <input type="text"f placeholder="What's spinning on your mind?">
+                    </div>
+                    <label>Options</label>
+                    <div class="d-flex flex-column" id="options">
+                        <input id="option1" style="background-color: aqua;" type="text" placeholder="Add an option" name = "option1">
+                        <br>
+                    </div>
+                    <button class="btn-normal" style="background-color:yellow">Save</button>
+                    <input type="button" class="btn-normal" style="background-color: #5555bf;" id ="btn_add" value="Add">
+                    <input type="button" class="btn-normal" style="background-color: #f44336;" id ="btn_remove" value="Remove">
+                </form>
+        
+                <div style="clear: both;">
+
+                    <h3 id="asked" numQuestion = "{{numQuestion}}">The questions {{session['token']}} you asked:</h3>
+                    {% for easy in lazy %}
+                        {% set question_loop = loop %}
+                        <div style="clear:both;">
+                            <div class="col-sm-7">
+                                <h4 id="question{{loop.index}}" numOptions = "{{ easy.num_option }}" 
+                                    style="float: left; cursor: pointer;"> Question : {{ easy["title"] }} 
+                                </h4>
+                            </div>
+                            <div class="col-sm-5">
+                                <button class="btn-option" onclick="showOption({{loop.index}})" style="margin-left: 20px;">Show Option</button>
+                            </div>
+                        </div>
+                        <div id="show_option{{loop.index}}" style="display: none; clear: both; margin-left: 20px;">
+                           <b> <p>Options: </p> </b>
+                            {% for i in easy["option"] %}
+                                <p id="option{{loop.index}}-{{question_loop.index}}" optionValue="{{i}}">{{ i }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <p id="winner">Some text in the modal.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    <script src="../static/wheel.js"></script>
+    <script>
+        function deleteSegment(){
+            theWheel.deleteSegment();
+            theWheel.draw();
+        }
+
+        function showOption(numQuestion){
+            var x = document.getElementById(`show_option${numQuestion}`);
+            console.log(x);
+            if (x.style.display === "none") {
+                x.style.display = "block";
+            } else {
+                x.style.display = "none";
+            }
+        }
+
+        $('#btn_remove').on('click', () => {
+            deleteSegment();
+            let optionsLength = $('#options')[0].children.length;
+            let colorDeleted = colorPicked.indexOf($(`#option${optionNum}`)[0].style.backgroundColor);
+            $(`#option${optionNum}`).remove();
+            colorPicked.splice(`${colorDeleted}`, 1);
+            optionNum--;
+        })
+
         let numQuestion = $('#asked').attr('numQuestion');
         let colorPickedQuest = [];
         for (let indexQues = 1; indexQues <= numQuestion; indexQues++) {
