@@ -21,6 +21,7 @@ input{
 }
 .questions {
     width: 100%;
+    color: white;
 }
 .questions1 {
     width: 100%;
@@ -66,3 +67,11 @@ h1{
     justify-content: center;
     align-items: center;
 }
+
+/* .butt{
+    display: flex;
+    flex-flow: row;
+    justify-content: space-between;
+    align-items: center;
+
+} */

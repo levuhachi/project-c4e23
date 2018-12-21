@@ -68,6 +68,7 @@ function alertPrize(){
     let colorSegment = hexToRgb(winningSegment.fillStyle);
     let optionLength = $('#options')[0].children.length;
     let textWon = '';
+    
     for (let index = 1; index <= optionLength; index++) {
         let colorOption = $(`#option${index}`)[0].style.backgroundColor;
         if (colorOption === colorSegment) {
@@ -76,6 +77,7 @@ function alertPrize(){
         }
         //  $(`#option${index}`)
     }
+    console.log(optionLength);
     $('#myModal').modal('toggle');
     $("#winner").text("You have won " + textWon + "!");
 }
