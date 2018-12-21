@@ -10,12 +10,12 @@ console.log(colorPicked);
 $('#option1').css('background-color', firstColor);
   $("#btn_add").on("click", () => {
     if (theWheel.numSegments === 5) {
-        alert('limit 5 option');   
+        alert('Limit 5 Options');   
     } else {
         optionNum++;
         let newColor = getRandomColor();
         if (!colorPicked.includes(newColor) && !colorPickedQuest.includes(newColor)) {
-            $('#options').append(`<input id="option${optionNum}" style="background-color: ${newColor}" type="text" placeholder="Add an option" name = "option${optionNum}"><br>`);
+            $('#options').append(`<input class="questions" id="option${optionNum}" style="background-color: ${newColor}" type="text" placeholder="Add an option" name = "option${optionNum}"><br>`);
             addSegments(newColor);
             colorPicked.push(newColor);
             console.log("PUSH" + colorPicked);

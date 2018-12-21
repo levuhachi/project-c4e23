@@ -1,0 +1,64 @@
+.the_wheel{
+    background-image: url(../images/wheel_back.png);
+    background-position: center;
+    background-repeat: none;
+    margin-top: 10%;
+}
+/* .modal-content{
+    height: 300px;
+    width: 300px;
+    margin: auto;
+    border-radius: inherit;
+} */
+input{
+    padding: 8px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 2px solid gray;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-weight: bold;
+}
+.questions {
+    width: 100%;
+}
+.questions1 {
+    width: 100%;
+    margin-top: 10%;
+}
+.btn-normal{
+    border: 2px solid gray;
+    border-radius: 4px;4
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+.btn-option{
+    border: 2px solid gray;
+    border-radius: 4px;
+    color: black;
+    padding: 5px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+body{
+    width: 80%;
+    margin: auto;
+}
+h1{
+    font-size: 400%;
+    font-family: 'Major Mono Display', monospace;
+    display: flex;
+    flex-flow: row;
+    justify-content: center;
+    align-items: center;
+}
