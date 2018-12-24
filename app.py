@@ -72,5 +72,13 @@ def deleteQuestion(id):
     question.delete()
     return redirect(url_for('lazythinking'))
 
+@app.route("/logout")
+def logout():
+    if "token" in session:
+        del session["token"] 
+    return redirect("login")
+
+
+
 if __name__ == "__main__":
     app.run(debug=True)

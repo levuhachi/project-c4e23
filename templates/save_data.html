@@ -74,6 +74,11 @@
                         </div>
                     {% endfor %}
                 </div>
+                <p>
+                    <a href="{{ url_for('logout') }}">
+                        <button id="btn_logout" type="button" style="background-color: rgb(250, 160, 181);color:black; font-size: 150%" >Logout</button>
+                    </a>
+                </p>
             </div>
         
     <div class="modal fade" id="myModal" role="dialog">
@@ -103,6 +108,7 @@
                 x.style.display = "none";
             }
         }
+
         $('#btn_remove').on('click', () => {
             if($('#options')[0].children.length > 1) {
                 deleteSegment();
@@ -120,6 +126,11 @@
             // }else{
             // }
         })
+
+        $('#btn_logout').on('click', () => {
+
+        })
+
         let numQuestion = $('#asked').attr('numQuestion');
         let colorPickedQuest = [];
         for (let indexQues = 1; indexQues <= numQuestion; indexQues++) {
