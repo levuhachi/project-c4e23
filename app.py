@@ -40,7 +40,7 @@ def sign_up():
             m = User(username=u, password=p)
             m.save()
             # return render_template("sign_up_successful.html") 
-            return redirect(url_for('login'))
+            return redirect(url_for('lazythinking'))
 
 @app.route("/", methods = ["GET","POST"])
 def lazythinking():    
