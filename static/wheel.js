@@ -1,6 +1,6 @@
 let optionNum = 1;
 // let colorPicker = ['green', 'yellow', 'red', 'blue', 'pink', 'aqua', 'brown', 'orange'];
-let colorPicker = ['#EB6E80','#008F95','#E24E42','#49274A','#F19F4D']
+let colorPicker = ['#EB6E80','#008F95','#E24E42','#6AB187','#F19F4D']
 let colorPicked = [];
 const getRandomColor = () => {
     return colorPicker[Math.floor(Math.random() * colorPicker.length)];

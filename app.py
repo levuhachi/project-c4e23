@@ -35,11 +35,12 @@ def sign_up():
         p = form["password"]
         exist_user = User.objects(username=u).first()
         if exist_user != None:
-            return "User already exist !!!!"
+            return redirect(url_for("lazythinking"))
         else:
             m = User(username=u, password=p)
             m.save()
-            return render_template("sign_up_successful.html") 
+            # return render_template("sign_up_successful.html") 
+            return redirect(url_for('login'))
 
 @app.route("/", methods = ["GET","POST"])
 def lazythinking():    
@@ -50,7 +51,7 @@ def lazythinking():
             lazy = Lazy.objects(user = user)
             return render_template("save_data.html", lazy = lazy, numQuestion = len(lazy))
         else:
-            return "Not Allowed"
+            return redirect(url_for('sign_up'))
     elif request.method == "POST":
         form = request.form
         title = form["title"]
@@ -63,7 +64,13 @@ def lazythinking():
         user = User.objects(username = username).first()
         new_option = Lazy(title = title, option = option, num_option = len(option),user = user)
         new_option.save()
-        return "Your choices have been saved"
+        return redirect(url_for('lazythinking'))
+
+@app.route('/delete/<id>')
+def deleteQuestion(id):
+    question = Lazy.objects.with_id(id)
+    question.delete()
+    return redirect(url_for('lazythinking'))
 
 if __name__ == "__main__":
     app.run(debug=True)

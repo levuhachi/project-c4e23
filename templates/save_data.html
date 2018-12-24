@@ -9,7 +9,7 @@
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="../static/style/style.css">
-    <link href="https://fonts.googleapis.com/css?family=Lora|Major+Mono+Display|Raleway" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Kalam|Lora|Major+Mono+Display|Raleway" rel="stylesheet">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -28,9 +28,10 @@
         <div class="col-sm-2"></div>
     </div>
     <div class="col-sm-6">
-            <canvas id="canvas" width="438" height="582" class="the_wheel" align="center" valign="center" onClick="startSpin();"></canvas>
+            <canvas id="canvas" width="438" height="582" class="the_wheel" align="center" valign="center;"></canvas>
             <p>
-                <button type= onClick="resetWheel(); return false;" style="margin-left:35%;">Play Again</button>
+                <button type ="button" class="btn_wheel" onClick="startSpin();" style="float: left; margin-left: 25%">Spin</button>
+                <button type="button" class="btn_wheel" onClick="resetWheel(); return false;" style="float: right; margin-right: 45%">Play Again</button>
             </p>
     </div>
     <div class="container">
@@ -42,9 +43,9 @@
                         <input class="questions" id="option1" style="background-color: aqua;" type="text" placeholder="Add an option" name = "option1" required>
                     </div>
                     <div class = "butt">
-                            <input  type="submit" class="btn-normal" style="background-color:yellow" value="Save">
-                            <input  type="button" class="btn-normal" style="background-color: #5555bf;" id ="btn_add" value="Add">
-                            <input  type="button" class="btn-normal" style="background-color: #f44336;" id ="btn_remove" value="Remove">
+                            <input  type="submit" class="btn-normal" style="background-color: rgb(250, 160, 181);color: aliceblue" value="Save">
+                            <input  type="button" class="btn-normal" style="background-color: #91A8d0;color: aliceblue" id ="btn_add" value="Add">
+                            <input  type="button" class="btn-normal" style="background-color: #649388;color: aliceblue" id ="btn_remove" value="Remove">
                     </div>
                     
                 </div>
@@ -61,8 +62,8 @@
                                 </h4>
                             </div>
                             <div class="col-sm-5">
-                                <button class="btn-option" onclick="showOption({{loop.index}})" style="margin-left: 20px;">Show Option</button>
-                                <button class="btn-option" onclick="remove({{loop.index}})" style="margin-left: 20px;">Delete</button>
+                                <button type="button" class="btn-option" onclick="showOption({{loop.index}})" style="float: left;">Show Option</button>
+                                <a href="{{ url_for('deleteQuestion', id=easy.id) }}"><button type="button" class="btn-option" onclick="remove({{loop.index}})" style="float: right;;">Delete</button></a>
                             </div>
                         </div>
                         <div id="show_option{{loop.index}}" style="display: none; clear: both; margin-left: 20px;">
@@ -79,7 +80,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-body">
-                    <p id="winner">Some text in the modal.</p>
+                    <p id="winner">You won</p>
                 </div>
             </div>
         </div>
@@ -101,16 +102,19 @@
             }
         }
         $('#btn_remove').on('click', () => {
-            if($('#options')[0].length == 1){
-                console.log(123);
-            }else{
+            if($('#options')[0].children.length > 1) {
                 deleteSegment();
                 let optionsLength = $('#options')[0].children.length;
                 let colorDeleted = colorPicked.indexOf($(`#option${optionNum}`)[0].style.backgroundColor);
                 $(`#option${optionNum}`).remove();
                 colorPicked.splice(`${colorDeleted}`, 1);
                 optionNum--;
-            }
+            };
+            
+            // if($('#options')[0].length == 1){
+            //     console.log(123);
+            // }else{
+            // }
         })
         let numQuestion = $('#asked').attr('numQuestion');
         let colorPickedQuest = [];
@@ -125,7 +129,7 @@
                     let color = getRandomColor();
                     if (!colorPickedQuest.includes(color)) {
                         $('#options').append(`
-                            <input class="questions" value="${optionValue}" style="background-color: ${color};" type="text" placeholder="Add an option" name = "option${indexOption}">
+                            <input class="questions" id="option${indexOption}" value="${optionValue}" style="background-color: ${color};" type="text" placeholder="Add an option" name = "option${indexOption}">
                         `);
                         addSegments(color);
                         colorPickedQuest.push(color);

@@ -27,6 +27,7 @@ input{
     width: 100%;
     margin-top: 5%;
     margin-bottom: 2%;
+    font: 'Kalam', cursive;
 }
 .btn-normal{
     border: 2px solid gray;
@@ -41,9 +42,8 @@ input{
     cursor: pointer;
 }
 .btn-option{
-    border: 2px solid gray;
     border-radius: 4px;
-    color: black;
+    color: rgb(5, 0, 0);
     padding: 5px 10px;
     text-align: center;
     text-decoration: none;
@@ -51,6 +51,7 @@ input{
     font-size: 16px;
     margin: 4px 2px;
     cursor: pointer;
+    background-color: #EC9787;
 }
 body{
     width: 80%;
@@ -67,6 +68,7 @@ h1{
     flex-flow: row;
     justify-content: center;
     align-items: center;
+    /* color: black; */
 }
 
 /* .butt{
@@ -85,4 +87,13 @@ h4{
 }
 #old_op{
     font-weight: bold;
+}
+.btn_wheel{
+    background-color: #f7786b;
+    /* background-image: url(https://image.freepik.com/free-vector/pink-shiny-background_1378-143.jpg); */
+    border: #f7cac9;
+    color: black;
+    font-family: Helvetica, sans-serif;
+    font-weight: bold;
+    font-size: 120%;
 }
