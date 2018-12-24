@@ -13,6 +13,7 @@ $('#option1').css('background-color', firstColor);
     if (theWheel.numSegments === 5) {
         alert('Limit 5 Options');   
     } else {
+        optionNum = $('#options')[0].children.length;
         optionNum++;
         let newColor = getRandomColor();
         if (!colorPicked.includes(newColor) && !colorPickedQuest.includes(newColor)) {

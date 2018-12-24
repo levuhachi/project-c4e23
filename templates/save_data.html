@@ -89,6 +89,8 @@
     <script src="../static/wheel.js"></script>
     <script>
         function deleteSegment(){
+            // let numSegments = theWheel.segments.length;
+            // colorPicked.splice(`${numSegments-1}`, 1);
             theWheel.deleteSegment();
             theWheel.draw();
         }
@@ -109,6 +111,8 @@
                 $(`#option${optionNum}`).remove();
                 colorPicked.splice(`${colorDeleted}`, 1);
                 optionNum--;
+                console.log($('#options'));
+                
             };
             
             // if($('#options')[0].length == 1){
