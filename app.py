@@ -51,7 +51,7 @@ def lazythinking():
             lazy = Lazy.objects(user = user)
             return render_template("save_data.html", lazy = lazy, numQuestion = len(lazy))
         else:
-            return redirect(url_for('sign_up'))
+            return redirect(url_for('login'))
     elif request.method == "POST":
         form = request.form
         title = form["title"]
